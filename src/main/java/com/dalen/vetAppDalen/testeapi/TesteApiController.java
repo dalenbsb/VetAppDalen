@@ -8,7 +8,7 @@ public class TesteApiController {
 	
 	@GetMapping("/api/hello")
     public String hello() {
-        return "Hello World, Dalembert Menezes Cruz agora com deploy CDI.";
+        return "Hello World, Dalembert Menezes Cruz agora com deploy CDI. de novo";
     }
 
 }
