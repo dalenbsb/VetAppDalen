@@ -1,3 +1,35 @@
-/.classpath
-/.project
-/.target/*
+# ===== Maven =====#
+/target/
+/src/
+!.mvn/wrapper/maven-wrapper.jar
+
+# ===== Eclipse =====#
+.project
+.classpath
+.settings/
+
+# ===== IntelliJ (caso use) ===== #
+.idea/
+*.iml
+
+# ===== VS Code ===== #
+.vscode/
+
+# ===== Logs ===== #
+*.log
+
+# ===== OS ===== #
+.DS_Store
+Thumbs.db
+
+# ===== Env ===== #
+.env
+
+# ===== Build ===== #
+*.jar
+*.war
+*.ear
+
+# ===== Node (se usar frontend junto) ===== #
+node_modules/
+dist/
