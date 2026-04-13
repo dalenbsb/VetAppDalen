@@ -33,4 +33,4 @@ jobs:
           --image gcr.io/vetappdalen/vetapp
           --platform managed
           --region southamerica-east1
-          --allow-unauthenticateddd
+          --allow-unauthenticated
