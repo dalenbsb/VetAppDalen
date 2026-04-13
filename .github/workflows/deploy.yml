@@ -24,13 +24,27 @@ jobs:
       - name: Definir projeto
         run: gcloud config set project vetappdalen
 
+      # BUILD COM VERSIONAMENTO
       - name: Build da imagem
-        run: gcloud builds submit --tag gcr.io/vetappdalen/vetapp
-          
+        run: |
+          IMAGE=gcr.io/vetappdalen/vetapp
+          TAG=${{ github.sha }}
+
+          echo "Building image: $IMAGE:$TAG"
+
+          gcloud builds submit . --tag $IMAGE:$TAG
+
+          # Criar tag latest apontando para o mesmo build
+          gcloud container images add-tag \
+            $IMAGE:$TAG \
+            $IMAGE:latest \
+            --quiet
+
+      # DEPLOY COM SHA (imutável)
       - name: Deploy no Cloud Run
         run: >
           gcloud run deploy vetapp
-          --image gcr.io/vetappdalen/vetapp
+          --image gcr.io/vetappdalen/vetapp:${{ github.sha }}
           --platform managed
           --region southamerica-east1
           --allow-unauthenticated
