@@ -11,7 +11,7 @@ public class TesteApiController {
 	
 	@GetMapping("/api/hello")
     public String hello() {
-        return "Hello World, Dalembert Menezes Cruz agora com Deploy automático (" + profile + .";
+        return "Hello World, Dalembert Menezes Cruz agora com Deploy automático (" + profile + ");
     }
 
 }
