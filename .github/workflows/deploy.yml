@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - develop
 
 jobs:
   deploy:
@@ -24,27 +25,36 @@ jobs:
       - name: Definir projeto
         run: gcloud config set project vetappdalen
 
-      # BUILD COM VERSIONAMENTO
+      # Definir ambiente dinamicamente
+      - name: Definir variáveis
+        run: |
+          if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
+            echo "SERVICE=vetapp" >> $GITHUB_ENV
+            echo "ENV=prod" >> $GITHUB_ENV
+          else
+            echo "SERVICE=vetapp-dev" >> $GITHUB_ENV
+            echo "ENV=dev" >> $GITHUB_ENV
+          fi
+
+      # Build versionado
       - name: Build da imagem
         run: |
           IMAGE=gcr.io/vetappdalen/vetapp
           TAG=${{ github.sha }}
 
-          echo "Building image: $IMAGE:$TAG"
-
           gcloud builds submit . --tag $IMAGE:$TAG
 
-          # Criar tag latest apontando para o mesmo build
           gcloud container images add-tag \
             $IMAGE:$TAG \
             $IMAGE:latest \
             --quiet
 
-      # DEPLOY COM SHA (imutável)
+      # Deploy
       - name: Deploy no Cloud Run
         run: >
-          gcloud run deploy vetapp
+          gcloud run deploy $SERVICE
           --image gcr.io/vetappdalen/vetapp:${{ github.sha }}
           --platform managed
           --region southamerica-east1
           --allow-unauthenticated
+          --set-env-vars SPRING_PROFILES_ACTIVE=$ENV
