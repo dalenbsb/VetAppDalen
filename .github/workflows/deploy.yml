@@ -21,14 +21,16 @@ jobs:
       - name: Configurar gcloud
         uses: google-github-actions/setup-gcloud@v2
 
-      - name: Build da imagem
-        run: |
-          gcloud builds submit --tag gcr.io/vetappdalen/vetapp
+      - name: Definir projeto
+        run: gcloud config set project vetappdalen
 
+      - name: Build da imagem
+        run: gcloud builds submit --tag gcr.io/vetappdalen/vetapp
+          
       - name: Deploy no Cloud Run
-        run: |
-          gcloud run deploy vetapp \
-            --image gcr.io/vetappdalen/vetapp \
-            --platform managed \
-            --region southamerica-east1 \
-            --allow-unauthenticated
+        run: >
+          gcloud run deploy vetapp
+          --image gcr.io/vetappdalen/vetapp
+          --platform managed
+          --region southamerica-east1
+          --allow-unauthenticateddd
