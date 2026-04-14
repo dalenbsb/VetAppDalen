@@ -14,6 +14,6 @@ public class DevConfig {
     
     @Bean
     public String db() {
-        return "Banco H2 (DEV)";
+        return "Banco H2 (DEV) ";
     }
 }
