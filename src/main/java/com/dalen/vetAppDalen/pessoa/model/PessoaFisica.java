@@ -11,5 +11,5 @@ import lombok.Setter;
 @DiscriminatorValue("PF")
 public class PessoaFisica extends Pessoa {
 
-	private String cpf;
+
 }

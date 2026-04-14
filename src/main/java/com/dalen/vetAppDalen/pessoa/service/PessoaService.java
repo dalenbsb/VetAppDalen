@@ -1,19 +1,21 @@
 package com.dalen.vetAppDalen.pessoa.service;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import com.dalen.vetAppDalen.pessoa.dto.request.PessoaFisicaRequestDTO;
-import com.dalen.vetAppDalen.pessoa.dto.request.PessoaJuridicaRequestDTO;
+import com.dalen.vetAppDalen.pessoa.dto.request.PessoaRequestDTO;
 import com.dalen.vetAppDalen.pessoa.dto.response.PessoaResponseDTO;
 
 public interface PessoaService {
-
-	public PessoaResponseDTO salvarPF(PessoaFisicaRequestDTO dto);
 	
-	public PessoaResponseDTO salvarPJ(PessoaJuridicaRequestDTO dto);
-	
-	public List<PessoaResponseDTO> listar();
+	public Page<PessoaResponseDTO> listar(Pageable pageable);
 	
 	public PessoaResponseDTO buscarPorId(Long id);
+	
+	 public PessoaResponseDTO salvar(PessoaRequestDTO dto);
+	
+	public PessoaResponseDTO atualizar(Long id, PessoaRequestDTO dto);
+	
+	public void deletar(Long id);
 
 }
